@@ -1,0 +1,36 @@
+﻿<div class="bg-light border mt-1	col-5" @onclick="(args)=>SelectedProduct(args,ProductForComp.Name)">
+	<h2 class="text-primary">Product : @ProductForComp.Id</h2>
+	<input type="checkbox" @onchange="FavoriteUpdated" /> Add To Favorites<br />
+	<a>Name : @ProductForComp.Name</a> <br />
+	<input type="checkbox" @bind="ProductForComp.IsActive" />
+	@if (ProductForComp.IsActive)
+	{
+		foreach (var prop in ProductForComp.ProductProperties)
+		{
+
+			<span>@prop.Key : @prop.Value</span>
+
+		}
+	}
+	<br /><_DeleteButtonComp ProductId="@ProductForComp.Id"></_DeleteButtonComp>
+
+</div>
+
+@code {
+	
+	[Parameter]
+	public Product ProductForComp { get; set; }
+	[Parameter]
+	public EventCallback<bool> OnFavoriteCountChange { get; set; }
+	[Parameter]
+	public EventCallback<string> OnProductSelected { get; set; }
+	private async Task FavoriteUpdated(ChangeEventArgs args)
+	{
+
+		await OnFavoriteCountChange.InvokeAsync((bool)(args.Value??false));
+	}
+	private async Task SelectedProduct(MouseEventArgs args,string productName)
+	{
+		await OnProductSelected.InvokeAsync(productName);
+	}
+}

@@ -1,0 +1,12 @@
+﻿
+<div class="row">
+<p>Message for Grand Child : @MessageForGrandChild</p>
+	<p>Lucky Number : @LuckyNumber</p>
+</div>
+
+@code {
+	[CascadingParameter(Name="Message")]
+	public string MessageForGrandChild { get; set; }
+	[CascadingParameter(Name = "LuckyNumber")]
+	public int LuckyNumber { get; set; }
+}
