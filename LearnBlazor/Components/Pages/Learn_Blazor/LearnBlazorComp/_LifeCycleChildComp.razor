@@ -1,0 +1,24 @@
+﻿<h3>_LifeCycleChildComp</h3>
+
+
+@foreach (var item in EventType)
+{
+    <p>@item</p>
+    <hr />
+}
+
+
+@code {
+	[Parameter]
+	public int CountValue { get; set; }
+    List<string> EventType = new List<string>();
+    protected override void OnInitialized()
+    {
+
+        EventType.Add("OnInitialized CHILD");
+    }
+    protected override void OnParametersSet()
+    {
+        EventType.Add("OnParametersSet CHILD");
+    }
+}
